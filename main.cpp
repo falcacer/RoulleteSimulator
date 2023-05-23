@@ -6,7 +6,7 @@
 using namespace std;
 
 #define ROULLET 37
-#define ITER 20
+#define ITER 10000
 
 // define the types of bets
 
@@ -107,6 +107,13 @@ int main() {
             playerD.wallet + playerE.wallet + playerF.wallet;
    
   cout << "el balance total es de " << balance << endl;
+
+  playerA.clear();
+  playerB.clear();
+  playerC.clear();
+  playerD.clear();
+  playerE.clear();
+  playerF.clear();
 
   return 0;
 }
