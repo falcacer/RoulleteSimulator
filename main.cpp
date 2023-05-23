@@ -5,11 +5,10 @@
 
 using namespace std;
 
-#define ROULLETE 37
-#define ITER 10000
+#define ROULLETTE 37 // numbers in the roullete
+#define ITER 10000 // number of simulations
 
-// define the types of bets
-
+// define the types of bets in the roullete
 bool red(int number) {
   set <int> red = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
   return red.count(number);
@@ -45,33 +44,32 @@ int main() {
   Player playerA, playerB, playerC, playerD, playerE, playerF;
   playerA.init();
   playerA.start();
-  playerA.setCondition(red);
+  playerA.setBet(red);
 
   playerB.init();
   playerB.start();
-  playerB.setCondition(black);
+  playerB.setBet(black);
 
   playerC.init();
   playerC.start();
-  playerC.setCondition(higher);
+  playerC.setBet(higher);
 
   playerD.init();
   playerD.start();
-  playerD.setCondition(lower);
+  playerD.setBet(lower);
 
   playerE.init();
   playerE.start();
-  playerE.setCondition(even);
+  playerE.setBet(even);
 
   playerF.init();
   playerF.start();
-  playerF.setCondition(odd);
+  playerF.setBet(odd);
   
   
   for (int i = 0; i < ITER ; i++) {
 
-    int number = rand() % ROULLETE;
-
+    // Here we analyze the bets of each player to check that they are ok
     cout << "Player A:" << endl;
     playerA.print();
     amountA = playerA.checkBet();
@@ -90,13 +88,20 @@ int main() {
     cout << "Player F:" << endl;
     playerF.print();
     amountF = playerF.checkBet();
+
+    // The roullette gives the number
+    int number = rand() % ROULLETTE;
     cout << "Number : * " << number << " *" << endl;
-    playerA.bet(number, amountA);
-    playerB.bet(number, amountB);
-    playerC.bet(number, amountC);
-    playerD.bet(number, amountD);
-    playerE.bet(number, amountE);
-    playerF.bet(number, amountF);
+
+    // Here the casino settle the bets
+    playerA.settle(number, amountA);
+    playerB.settle(number, amountB);
+    playerC.settle(number, amountC);
+    playerD.settle(number, amountD);
+    playerE.settle(number, amountE);
+    playerF.settle(number, amountF);
+
+    // Here we print the bets of each player after the settle
     cout << "Player A:" << endl;
     playerA.print();
     cout << "PlayerA Wallet = " << playerA.wallet << endl;
@@ -121,8 +126,9 @@ int main() {
   balance = playerA.wallet + playerB.wallet + playerC.wallet +
             playerD.wallet + playerE.wallet + playerF.wallet;
 
-  cout << "el balance total es de " << balance << endl;
+  cout << "The total balance is " << balance << endl;
 
+  // Here we clear the bets in memory
   playerA.clear();
   playerB.clear();
   playerC.clear();

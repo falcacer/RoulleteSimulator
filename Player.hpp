@@ -4,7 +4,7 @@ using namespace std;
 #define MAX 4000
 #define MIN 5
 
-typedef bool (*Condition)(int);
+typedef bool (*Bet)(int);
 
 class Player {
   public: 
@@ -16,27 +16,10 @@ class Player {
     Node* head;
     Node* last;
     int wallet;
-    Condition condition;
-
-    void setCondition(Condition cond) {
-      condition = cond;
-    }
-
-    void init() {
-      head = nullptr;
-      last = nullptr;
-      wallet = 0;
-    };
-
-    void start() {
-      insert(1);
-      insert(2);
-      insert(3);
-      insert(4);
-    }
+    Bet condition;
 
     void insert(int data) {
-      // Creates a node an push it to the end of the list. O(1)
+      // Creates a node and push it into the end of the list.
       Node* newNode = new Node;
       newNode->data = data;
       newNode->next = nullptr;
@@ -54,7 +37,7 @@ class Player {
     };
 
     void deleteHead() {
-      // Deletes the first element of the list. O(1)
+      // Deletes the first element of the list.
       if (head != nullptr) {
         Node* temp = head;
         head = head->next;
@@ -64,7 +47,7 @@ class Player {
     };
 
     void deleteLast() {
-      // Deletes the last element of the list. O(1)
+      // Deletes the last element of the list.
       if (last == nullptr) {
         return;
       }
@@ -83,7 +66,7 @@ class Player {
     };
 
     void clear() {
-      // Clear the list. O(n)
+      // Clear the list.
       Node* current = head;
       while (current != nullptr) {
       Node* nextNode = current->next;
@@ -94,6 +77,23 @@ class Player {
       last = nullptr;
     };
 
+    void setBet(Bet cond) {
+      condition = cond;
+    };
+
+    void init() {
+      head = nullptr;
+      last = nullptr;
+      wallet = 0;
+    };
+
+    void start() {
+      insert(1);
+      insert(2);
+      insert(3);
+      insert(4);
+    };
+
     void won(int amount) {
       insert(amount);
     };
@@ -101,14 +101,13 @@ class Player {
     void loss() {
       deleteHead();
       deleteLast();
-      };
-
+    };
 
     int checkBet() {
       int bet;
       if (head != nullptr) {
-        if (head->next == nullptr) { bet = head->data;}
-        else { bet = head->data + last->data;}
+        if (head->next == nullptr) { bet = head->data; }
+        else { bet = head->data + last->data; }
         if (bet < MIN or bet > MAX) {
         cout << "Bet not supported by the table, return to initial bet" << endl;
         clear();
@@ -126,11 +125,12 @@ class Player {
       }
     };
 
-    void bet(int number, int amount) {
+    void settle(int number, int amount) {
       if (condition(number)) {
         wallet += amount;
         won(amount);
-      } else {
+      }
+      else {
         wallet -= amount;
         loss();
       }
