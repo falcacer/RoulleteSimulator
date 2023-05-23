@@ -98,7 +98,7 @@ class Player {
       insert(amount);
     };
 
-    void loss() {
+    void lost() {
       deleteHead();
       deleteLast();
     };
@@ -132,7 +132,7 @@ class Player {
       }
       else {
         wallet -= amount;
-        loss();
+        lost();
       }
     };
 
