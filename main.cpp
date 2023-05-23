@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define ROULLET 37
+#define ROULLETE 37
 #define ITER 10000
 
 // define the types of bets
@@ -37,7 +37,7 @@ bool odd(int number) {
 }
 
 int main() {
-  int balance;
+  int balance, amountA, amountB, amountC, amountD, amountE, amountF;
   unsigned seed = time(0);
   srand(seed);
 
@@ -70,42 +70,57 @@ int main() {
   
   for (int i = 0; i < ITER ; i++) {
 
-    int number = rand() % ROULLET;
-    cout << "Salio el numero: " << number << endl;
-    cout << "Player A: "; playerA.print();
-    playerA.bet(number);
+    int number = rand() % ROULLETE;
+
+    cout << "Player A:" << endl;
     playerA.print();
-    cout << "Wallet = " << playerA.wallet << endl;
-
-    cout << "Player B: "; playerB.print();
-    playerB.bet(number);
+    amountA = playerA.checkBet();
+    cout << "Player B:" << endl;
     playerB.print();
-    cout << "Wallet = " << playerB.wallet << endl;
-
-    cout << "Player C: "; playerC.print();
-    playerC.bet(number);
+    amountB = playerB.checkBet();
+    cout << "Player C:" << endl;
     playerC.print();
-    cout << "Wallet = " << playerC.wallet << endl;
-
-    cout << "Player D: "; playerD.print();
-    playerD.bet(number);
+    amountC = playerC.checkBet();
+    cout << "Player D:" << endl;
     playerD.print();
-    cout << "Wallet = " << playerD.wallet << endl;
-
-    cout << "Player E: "; playerE.print();
-    playerE.bet(number);
+    amountD = playerD.checkBet();
+    cout << "Player E:" << endl;
     playerE.print();
-    cout << "Wallet = " << playerE.wallet << endl;
-
-    cout << "Player F: "; playerF.print();
-    playerF.bet(number);
-    playerF.print();  
-    cout << "Wallet = " << playerF.wallet << endl;  
+    amountE = playerE.checkBet();
+    cout << "Player F:" << endl;
+    playerF.print();
+    amountF = playerF.checkBet();
+    cout << "Number : * " << number << " *" << endl;
+    playerA.bet(number, amountA);
+    playerB.bet(number, amountB);
+    playerC.bet(number, amountC);
+    playerD.bet(number, amountD);
+    playerE.bet(number, amountE);
+    playerF.bet(number, amountF);
+    cout << "Player A:" << endl;
+    playerA.print();
+    cout << "PlayerA Wallet = " << playerA.wallet << endl;
+    cout << "Player B:" << endl;
+    playerB.print();
+    cout << "PlayerB Wallet = " << playerB.wallet << endl;
+    cout << "Player C:" << endl;
+    playerC.print();
+    cout << "PlayerC Wallet = " << playerC.wallet << endl;
+    cout << "Player D:" << endl;
+    playerD.print();
+    cout << "PlayerD Wallet = " << playerD.wallet << endl;
+    cout << "Player E:" << endl;
+    playerE.print();
+    cout << "PlayerE Wallet = " << playerE.wallet << endl;
+    cout << "Player F:" << endl;
+    playerF.print();
+    cout << "PlayerF Wallet = " << playerF.wallet << endl;
+    cout << "-------------------" << endl;
   }
 
   balance = playerA.wallet + playerB.wallet + playerC.wallet +
             playerD.wallet + playerE.wallet + playerF.wallet;
-   
+
   cout << "el balance total es de " << balance << endl;
 
   playerA.clear();

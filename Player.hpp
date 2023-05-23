@@ -36,6 +36,7 @@ class Player {
     }
 
     void insert(int data) {
+      // Creates a node an push it to the end of the list. O(1)
       Node* newNode = new Node;
       newNode->data = data;
       newNode->next = nullptr;
@@ -53,6 +54,7 @@ class Player {
     };
 
     void deleteHead() {
+      // Deletes the first element of the list. O(1)
       if (head != nullptr) {
         Node* temp = head;
         head = head->next;
@@ -62,6 +64,7 @@ class Player {
     };
 
     void deleteLast() {
+      // Deletes the last element of the list. O(1)
       if (last == nullptr) {
         return;
       }
@@ -80,6 +83,7 @@ class Player {
     };
 
     void clear() {
+      // Clear the list. O(n)
       Node* current = head;
       while (current != nullptr) {
       Node* nextNode = current->next;
@@ -91,7 +95,7 @@ class Player {
     };
 
     void won(int amount) {
-        insert(amount);
+      insert(amount);
     };
 
     void loss() {
@@ -99,8 +103,30 @@ class Player {
       deleteLast();
       };
 
-    void bet(int number) {
-      int amount = check();
+
+    int checkBet() {
+      int bet;
+      if (head != nullptr) {
+        if (head->next == nullptr) { bet = head->data;}
+        else { bet = head->data + last->data;}
+        if (bet < MIN or bet > MAX) {
+        cout << "Bet not supported by the table, return to initial bet" << endl;
+        clear();
+        start();
+        print();
+        return head->data + last->data;
+        }
+        return bet;
+      }
+      else {
+        cout << "No bet available, return to initial bet" << endl;
+        start();
+        print();
+        return head->data + last->data;
+      }
+    };
+
+    void bet(int number, int amount) {
       if (condition(number)) {
         wallet += amount;
         won(amount);
@@ -110,26 +136,6 @@ class Player {
       }
     };
 
-    int check() {
-      int bet;
-      if (head != nullptr) {
-        if (head->next == nullptr) { bet = head->data; }
-        else { bet = head->data + last->data; }
-
-        if (bet < MIN or bet > MAX) {
-          clear();
-          start();
-          return head->data + last->data;
-        }
-
-        return bet;
-      }
-      clear();
-      start();
-      
-      return head->data + last->data;
-    };
-
     void print() {
       cout << "[ ";
       Node* current = head;
@@ -137,6 +143,6 @@ class Player {
         cout << current->data << " ";
         current = current->next;
       }
-      cout << "] ";
+      cout << "]" << endl;
     };
 };
