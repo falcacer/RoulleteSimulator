@@ -5,9 +5,6 @@
 
 using namespace std;
 
-#define ROULLETTE 37 // numbers in the roullete
-#define ITER 10000 // number of simulations
-
 // define the types of bets in the roullete
 bool red(int number) {
   set <int> red = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
@@ -36,6 +33,10 @@ bool odd(int number) {
 }
 
 int main() {
+
+  const int ITER = 10000; // numbers in the roullete
+  const int ROULLETTE = 37; // number of simulations
+
   int balance, amountA, amountB, amountC, amountD, amountE, amountF;
   unsigned seed = time(0);
   srand(seed);

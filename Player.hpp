@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 4000
-#define MIN 5
+const int MAX = 4000;
+const int MIN = 5;
 
 typedef bool (*Bet)(int);
 
